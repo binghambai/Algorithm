@@ -1,9 +1,6 @@
 package Tree.BinaryTree;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * 遍历一个树
@@ -12,7 +9,13 @@ public class Traverse {
     public static void main(String[] args) {
         BinaryTreeInt test = new BinaryTreeInt(5, new BinaryTreeInt(4, new BinaryTreeInt(11, new BinaryTreeInt(7), new BinaryTreeInt(2)), null),
                                                 new BinaryTreeInt(8, new BinaryTreeInt(13), new BinaryTreeInt(4, null, new BinaryTreeInt(1))));
-        System.out.println(hasPathSum(test,22));
+//        System.out.println(hasPathSum(test,22));
+        int [] res = new int[]{1,2,3,4,5};
+
+        int []left = Arrays.copyOfRange(res, 0, 2);
+        for (int i : left) {
+            System.out.printf("%d ",i);
+        }
     }
 
     /**
