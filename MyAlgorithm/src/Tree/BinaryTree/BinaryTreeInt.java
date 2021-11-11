@@ -8,10 +8,10 @@ public class BinaryTreeInt {
 
     }
 
-    public BinaryTreeInt(int val, BinaryTreeInt right, BinaryTreeInt left) {
+    public BinaryTreeInt(int val, BinaryTreeInt left, BinaryTreeInt right) {
         this.val = val;
-        this.right = right;
         this.left = left;
+        this.right = right;
     }
 
     public BinaryTreeInt(int val){

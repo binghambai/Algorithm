@@ -1,34 +1,18 @@
 package Tree.BinaryTree;
 
-import com.sun.jmx.snmp.SnmpNull;
-
-import javax.swing.text.StyledEditorKit;
-import java.awt.geom.RectangularShape;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 /**
  * 遍历一个树
  */
 public class Traverse {
     public static void main(String[] args) {
-        BinaryTree listNode = new BinaryTree("F",
-                new BinaryTree("B",new BinaryTree("A"), new BinaryTree("D", new BinaryTree("C"), new BinaryTree("E"))),
-                new BinaryTree("G", null, new BinaryTree("I", new BinaryTree("H"), null)));
-//        List<String> res = new ArrayList<>();
-//        List<List<String>> lists = levelOrderTraverse(listNode);
-//        System.out.println(lists);
-        max_depth(listNode, 1);
-        System.out.println(resDepth);
-//        BinaryTree test1 = new BinaryTree("1", null, new BinaryTree("2", new BinaryTree("3"), null));
-//        List<String> res = new ArrayList<>();
-//        preOrderTraverse(test1, res);
-//        System.out.println(res);
-
-        BinaryTreeInt test2 = new BinaryTreeInt(2,new BinaryTreeInt(3,new BinaryTreeInt(4),null),
-                                                new BinaryTreeInt(3, new BinaryTreeInt(5), new BinaryTreeInt(4)));
-
-        boolean symmetric = isSymmetric(test2);
-        System.out.println(symmetric);
+        BinaryTreeInt test = new BinaryTreeInt(5, new BinaryTreeInt(4, new BinaryTreeInt(11, new BinaryTreeInt(7), new BinaryTreeInt(2)), null),
+                                                new BinaryTreeInt(8, new BinaryTreeInt(13), new BinaryTreeInt(4, null, new BinaryTreeInt(1))));
+        System.out.println(hasPathSum(test,22));
     }
 
     /**
@@ -72,7 +56,7 @@ public class Traverse {
     /**
      * 层级遍历，返回每一层的数据
      * @param root 根节点
-=     */
+     */
     public static List<List<String>> levelOrderTraverse(BinaryTree root) {
         List<List<String>> res = new ArrayList<>();
         if (root == null) {
@@ -131,6 +115,11 @@ public class Traverse {
         return Math.max(left_depth, right_depth) + 1;
     }
 
+    /**
+     * 判断二叉树 是否镜像对称
+     * @param root 根节点
+     * @return 结果
+     */
     public static boolean isSymmetric(BinaryTreeInt root){
         if (root == null) return true;
         List<Boolean> res = new ArrayList<>();
@@ -151,5 +140,26 @@ public class Traverse {
         }else {
             res.add(false);
         }
+    }
+
+    /**
+     * 判断树内是否存在等于target的路径和
+     * @param root 根节点
+     * @param targetSum 路径和
+     * @return 是否
+     */
+    public static boolean hasPathSum(BinaryTreeInt root, int targetSum) {
+        if (root == null) return false;
+        BinaryTreeInt left = root.left;
+        BinaryTreeInt right = root.right;
+        if (left == null && right == null) return targetSum == root.val;
+        boolean b1 = false, b2 = false;
+        if (left != null){
+            b1 = hasPathSum(left, targetSum - root.val);
+        }
+        if (right != null) {
+            b2 = hasPathSum(right, targetSum - root.val);
+        }
+        return b1||b2;
     }
 }
