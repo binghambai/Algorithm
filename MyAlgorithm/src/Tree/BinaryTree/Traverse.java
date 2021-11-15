@@ -10,14 +10,28 @@ public class Traverse {
         BinaryTreeInt test = new BinaryTreeInt(5, new BinaryTreeInt(4, new BinaryTreeInt(11, new BinaryTreeInt(7), new BinaryTreeInt(2)), null),
                                                 new BinaryTreeInt(8, new BinaryTreeInt(13), new BinaryTreeInt(4, null, new BinaryTreeInt(1))));
 //        System.out.println(hasPathSum(test,22));
-        int [] res = new int[]{1,2,3,4,5};
+//        int [] res = new int[]{1,2,3,4,5};
+//
+//        int []left = Arrays.copyOfRange(res, 0, 2);
+//        for (int i : left) {
+//            System.out.printf("%d ",i);
+//        }
+        int [] preOrder = new int[]{1,2,3,2,3,4};
+        int [] inOrder = new int[]{2,3,1,2,3,4};
 
-        int []left = Arrays.copyOfRange(res, 0, 2);
-        for (int i : left) {
-            System.out.printf("%d ",i);
+        BinaryTreeInt build = build(preOrder, inOrder);
+
+//        int [] r = Arrays.copyOfRange(preOrder, 1, preOrder.length);
+
+        preOrder(build);
+    }
+    public static void preOrder(BinaryTreeInt root) {
+        if (root != null) {
+            System.out.println(root.val);
+            preOrder(root.left);
+            preOrder(root.right);
         }
     }
-
     /**
      * 前序遍历  中左右
      * @param root 根节点
@@ -138,8 +152,8 @@ public class Traverse {
         } else if (right != null && left != null){
             if(right.val == left.val) res.add(true);
             else res.add(false);
-            isSymmetric_recursively(left.left, right.right, res);
-            isSymmetric_recursively(left.right, right.left, res);
+            isSymmetric_recursively(left.left, right.right, res); // 左树的左边和右树的右边比较
+            isSymmetric_recursively(left.right, right.left, res); // 左树的右边和右树的左边比较
         }else {
             res.add(false);
         }
@@ -164,5 +178,24 @@ public class Traverse {
             b2 = hasPathSum(right, targetSum - root.val);
         }
         return b1||b2;
+    }
+
+    public static BinaryTreeInt build(int [] preOrder, int [] inOrder) {
+        if (preOrder.length == 0 || inOrder.length == 0) return null;
+
+        int mid = 0;
+        for (int i = 0; i < inOrder.length; i++) {
+            if (preOrder[0] == inOrder[i]){
+                mid = i;
+                break;
+            }
+        }
+        BinaryTreeInt root = new BinaryTreeInt(inOrder[mid]);
+
+        int [] rangeLeft = Arrays.copyOfRange(inOrder, 0 , mid);
+        int [] rangeRight = Arrays.copyOfRange(inOrder, mid + 1, inOrder.length);
+        root.left = build(Arrays.copyOfRange(preOrder, 1, rangeLeft.length + 1), rangeLeft);
+        root.right = build(Arrays.copyOfRange(preOrder, rangeLeft.length + 1, preOrder.length),rangeRight);
+        return root;
     }
 }
