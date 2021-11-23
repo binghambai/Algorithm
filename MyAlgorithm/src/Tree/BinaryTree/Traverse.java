@@ -16,14 +16,16 @@ public class Traverse {
 //        for (int i : left) {
 //            System.out.printf("%d ",i);
 //        }
-        int [] preOrder = new int[]{1,2,3,2,3,4};
-        int [] inOrder = new int[]{2,3,1,2,3,4};
-
-        BinaryTreeInt build = build(preOrder, inOrder);
+//        int [] preOrder = new int[]{1,2,3,2,3,4};
+//        int [] inOrder = new int[]{2,3,1,2,3,4};
+//
+//        BinaryTreeInt build = build(preOrder, inOrder);
 
 //        int [] r = Arrays.copyOfRange(preOrder, 1, preOrder.length);
 
-        preOrder(build);
+//        preOrder(build);
+        String s = "meshop.api.goods";
+        System.out.println(s.split("\\.")[2]);
     }
     public static void preOrder(BinaryTreeInt root) {
         if (root != null) {
@@ -197,5 +199,31 @@ public class Traverse {
         root.left = build(Arrays.copyOfRange(preOrder, 1, rangeLeft.length + 1), rangeLeft);
         root.right = build(Arrays.copyOfRange(preOrder, rangeLeft.length + 1, preOrder.length),rangeRight);
         return root;
+    }
+
+    /**
+     * DFS方式的遍历
+     * @param root
+     * @return
+     */
+    public static String serialize(BinaryTree root) {
+        if (root == null) return "#";
+        return root.val + serialize(root.left) + serialize(root.right);
+    }
+
+    public static BinaryTree deserialize(String data) {
+        Queue<String> queue = new LinkedList<>(Arrays.asList(data.split(",")));
+        return helper(queue);
+    }
+
+    private static BinaryTree helper(Queue<String> queue) {
+       String val = queue.poll();
+       if("#".equals(val)) {
+           return null;
+       }
+       BinaryTree node = new BinaryTree(val);
+       node.left = helper(queue);
+       node.right = helper(queue);
+       return node;
     }
 }
