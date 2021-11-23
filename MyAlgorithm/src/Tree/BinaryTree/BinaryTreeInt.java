@@ -1,9 +1,9 @@
 package Tree.BinaryTree;
 
 public class BinaryTreeInt {
-    int val;
-    BinaryTreeInt right;
-    BinaryTreeInt left;
+    public int val;
+    public BinaryTreeInt right;
+    public BinaryTreeInt left;
     public BinaryTreeInt() {
 
     }
