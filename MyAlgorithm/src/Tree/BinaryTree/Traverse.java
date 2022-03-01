@@ -7,8 +7,17 @@ import java.util.*;
  */
 public class Traverse {
     public static void main(String[] args) {
-        BinaryTreeInt test = new BinaryTreeInt(5, new BinaryTreeInt(4, new BinaryTreeInt(11, new BinaryTreeInt(7), new BinaryTreeInt(2)), null),
-                                                new BinaryTreeInt(8, new BinaryTreeInt(13), new BinaryTreeInt(4, null, new BinaryTreeInt(1))));
+        TreeNode test = new TreeNode(5, new TreeNode(4, new TreeNode(11, new TreeNode(7), new TreeNode(2)), null),
+                                                new TreeNode(8, new TreeNode(13), new TreeNode(4, null, new TreeNode(1))));
+
+        TreeNode root = new TreeNode(5,
+                new TreeNode(3, new TreeNode(2, null, new TreeNode(4)), new TreeNode(1)),
+                new TreeNode(6, new TreeNode(7), null));
+
+        Practice1 practice1 = new Practice1();
+        List<List<Integer>> res =  practice1.levelOrder(root);
+        System.out.println(res);
+
 //        System.out.println(hasPathSum(test,22));
 //        int [] res = new int[]{1,2,3,4,5};
 //
